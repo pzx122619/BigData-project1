@@ -10,6 +10,9 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+import org.apache.log4j.BasicConfigurator;
+
+import java.util.Date;
 
 public class Main extends Configured implements Tool {
 
@@ -17,9 +20,9 @@ public class Main extends Configured implements Tool {
         Main main = new Main();
         int res = 0;
         if (true) {
-             res = ToolRunner.run(getLocalConfig(), main, new String[]{
+            res = ToolRunner.run(getLocalConfig(), main, new String[]{
                 "zestaw/input/datasource1/trips00.csv",
-                "output"
+                "output/"+ (new Date()).getTime()
             });
         } else {
             res = ToolRunner.run(main, args);
