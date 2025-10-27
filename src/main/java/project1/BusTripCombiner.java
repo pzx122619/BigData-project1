@@ -4,21 +4,16 @@ import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+import project1.Key.OperatorDepartureKey;
+import project1.Value.PassengersTicketPriceValue;
 
 import java.io.IOException;
 
-public class BusTripCombiner extends Reducer<Text, SumCount, Text, SumCount> {
+public class BusTripCombiner extends Reducer<OperatorDepartureKey, PassengersTicketPriceValue, Text, SumCount> {
 
-    private final SumCount sum = new SumCount(0.0d, 0);
 
     @Override
-    public void reduce(Text key, Iterable<SumCount> values, Context context) throws IOException, InterruptedException {
-
-        sum.set(new DoubleWritable(0.0d), new IntWritable(0));
-
-        for (SumCount val : values) {
-            sum.addSumCount(val);
-        }
-        context.write(key, sum);
+    public void reduce(OperatorDepartureKey key, Iterable<PassengersTicketPriceValue> values, Context context) throws IOException, InterruptedException {
+        System.out.println(key.toString());
     }
 }

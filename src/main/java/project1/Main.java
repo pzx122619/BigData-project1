@@ -21,7 +21,7 @@ public class Main extends Configured implements Tool {
         int res = 0;
         if (true) {
             res = ToolRunner.run(getLocalConfig(), main, new String[]{
-                "zestaw/input/datasource1/trips00.csv",
+                "data/input/datasource1/",
                 "output/"+ (new Date()).getTime()
             });
         } else {
@@ -45,6 +45,7 @@ public class Main extends Configured implements Tool {
         //TODO: set mapper and reducer class
         job.setMapperClass(BusTripMapper.class);
         job.setReducerClass(BusTripReducer.class);
+        job.setCombinerClass(BusTripCombiner.class);
 
         //TODO: clean up the data types on both levels: intermediate and final
         job.setOutputKeyClass(Text.class);
