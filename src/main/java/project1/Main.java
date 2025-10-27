@@ -11,6 +11,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.apache.log4j.BasicConfigurator;
+import project1.Key.OperatorDepartureKey;
+import project1.Value.PassengersTicketPriceSummaryValue;
+import project1.Value.PassengersTicketPriceValue;
 
 import java.util.Date;
 
@@ -48,8 +51,12 @@ public class Main extends Configured implements Tool {
         job.setCombinerClass(BusTripCombiner.class);
 
         //TODO: clean up the data types on both levels: intermediate and final
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(IntWritable.class);
+        job.setMapOutputKeyClass(OperatorDepartureKey.class);
+        job.setMapOutputValueClass(PassengersTicketPriceValue.class);
+
+        job.setOutputKeyClass(OperatorDepartureKey.class);
+        job.setOutputValueClass(PassengersTicketPriceSummaryValue.class);
+
         return job.waitForCompletion(true) ? 0 : 1;
     }
 }

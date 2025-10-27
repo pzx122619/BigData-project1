@@ -13,8 +13,8 @@ import java.time.format.DateTimeFormatter;
 
 public class BusTripMapper extends Mapper<LongWritable, Text, OperatorDepartureKey, PassengersTicketPriceValue> {
 
-    private final Text year = new Text();
-    private final IntWritable size = new IntWritable();
+    private final OperatorDepartureKey outKey = new OperatorDepartureKey();
+    private final PassengersTicketPriceValue outValue = new PassengersTicketPriceValue();
 
     public void map(LongWritable offset, Text lineText, Context context) throws IOException, InterruptedException {
         String line = lineText.toString();
@@ -30,7 +30,10 @@ public class BusTripMapper extends Mapper<LongWritable, Text, OperatorDepartureK
         Double ticketPrice = Double.parseDouble(values[7]);
         Integer passengersCount = Integer.parseInt(values[6]);
 
-        context.write(new OperatorDepartureKey(operatorId, hour), new PassengersTicketPriceValue(passengersCount, ticketPrice));
+        outKey.set(operatorId, hour);
+        outValue.set(passengersCount, ticketPrice, 1);
+
+        context.write(outKey, outValue);
     }
 
 

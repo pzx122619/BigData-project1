@@ -1,5 +1,6 @@
 package project1.Key;
 
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.WritableComparable;
@@ -9,10 +10,24 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class OperatorDepartureKey implements WritableComparable<OperatorDepartureKey> {
-    private Text operatorId;
-    private IntWritable departureHour;
+    Text operatorId;
+    IntWritable departureHour;
+
+    public OperatorDepartureKey() {
+        set(
+                "",
+                0
+        );
+    }
 
     public OperatorDepartureKey(String  operatorId, Integer departureHour) {
+        set(
+                operatorId,
+                departureHour
+        );
+    }
+
+    public void set(String operatorId, Integer departureHour) {
         this.operatorId = new Text(operatorId);
         this.departureHour = new IntWritable(departureHour);
     }
@@ -50,5 +65,10 @@ public class OperatorDepartureKey implements WritableComparable<OperatorDepartur
             return operatorId.equals(other.operatorId) && departureHour.equals(other.departureHour);
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return operatorId+"\t"+departureHour;
     }
 }
