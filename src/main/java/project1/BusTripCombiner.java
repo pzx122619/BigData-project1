@@ -12,8 +12,7 @@ public class BusTripCombiner extends Reducer<OperatorDepartureKey, PassengersTic
     @Override
     public void reduce(OperatorDepartureKey key, Iterable<PassengersTicketPriceValue> values, Context context) throws IOException, InterruptedException {
         for (PassengersTicketPriceValue v : values) {
-            System.out.println("Trips: "+outValue.getTripsCount());
-            System.out.println("PassengersCount: "+outValue.getPassengersCount());
+            outValue.sum(v);
         }
 
         context.write(key, outValue);
