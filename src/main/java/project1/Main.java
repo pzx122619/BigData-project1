@@ -22,7 +22,7 @@ public class Main extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
         Main main = new Main();
         int res = 0;
-        if (true) {
+        if (false) {
             res = ToolRunner.run(getLocalConfig(), main, new String[]{
                 "data/input/datasource1/",
                 "output/"+ (new Date()).getTime()
