@@ -9,6 +9,12 @@ input_dir3=$1
 input_dir4=$2
 output_dir6=$3
 
+hdfs dfs -test -e $output_dir6
+
+if [ $? -eq 0 ]; then
+    hdfs dfs -rm -r -skipTrash $output_dir6
+fi
+
 beeline -n "$(id -un)" -u "jdbc:hive2://localhost:10000/default" \
   --hivevar input_dir3=$input_dir3 \
   --hivevar input_dir4=$input_dir4 \
