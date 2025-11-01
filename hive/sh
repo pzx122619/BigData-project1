@@ -1,0 +1,11 @@
+docker cp target/project1.jar project1_master_1:/home/hadoop
+docker cp data/zestaw14.zip project1_master_1:/home/hadoop
+docker exec -it project1_master_1 bash
+
+
+hadoop fs -mkdir -p input
+hadoop fs -put input/* input/
+hadoop fs -ls -R input/
+hadoop jar project1.jar input/datasource1 output
+
+hadoop fs -rm -r output
