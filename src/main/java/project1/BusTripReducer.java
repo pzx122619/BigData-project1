@@ -9,8 +9,6 @@ import java.io.IOException;
 
 public class BusTripReducer extends Reducer<OperatorDepartureKey, PassengersTicketPriceValue, OperatorDepartureKey, PassengersTicketPriceSummaryValue> {
 
-    private final PassengersTicketPriceSummaryValue outValue = new PassengersTicketPriceSummaryValue();
-
     @Override
     public void reduce(OperatorDepartureKey key, Iterable<PassengersTicketPriceValue> values,
                        Context context) throws IOException, InterruptedException {
@@ -20,12 +18,9 @@ public class BusTripReducer extends Reducer<OperatorDepartureKey, PassengersTick
             summary.sum(v);
         }
 
-
-        outValue.set(
+        context.write(key, new PassengersTicketPriceSummaryValue(
                 summary.getTicketPrice().get()/summary.getTripsCount().get(),
                 summary.getPassengersCount().get()
-        );
-
-        context.write(key, outValue);
+        ));
     }
 }
