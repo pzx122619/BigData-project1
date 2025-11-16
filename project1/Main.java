@@ -3,11 +3,14 @@ package project1;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+import org.apache.log4j.BasicConfigurator;
 import project1.Key.OperatorDepartureKey;
 import project1.Value.PassengersTicketPriceSummaryValue;
 import project1.Value.PassengersTicketPriceValue;
@@ -19,14 +22,7 @@ public class Main extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
         Main main = new Main();
         int res = 0;
-        if (true) {
-            res = ToolRunner.run(getLocalConfig(), main, new String[]{
-                    "data/input/datasource1/",
-                    "output/"+ (new Date()).getTime()
-            });
-        } else {
-            res = ToolRunner.run(main, args);
-        }
+        res = ToolRunner.run(main, args);
         System.exit(res);
     }
 
