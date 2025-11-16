@@ -12,11 +12,21 @@ import project1.Key.OperatorDepartureKey;
 import project1.Value.PassengersTicketPriceSummaryValue;
 import project1.Value.PassengersTicketPriceValue;
 
+import java.util.Date;
+
 public class Main extends Configured implements Tool {
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
-        int res = ToolRunner.run(main, args);
+        int res = 0;
+        if (true) {
+            res = ToolRunner.run(getLocalConfig(), main, new String[]{
+                    "data/input/datasource1/",
+                    "output/"+ (new Date()).getTime()
+            });
+        } else {
+            res = ToolRunner.run(main, args);
+        }
         System.exit(res);
     }
 
